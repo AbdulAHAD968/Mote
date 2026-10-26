@@ -1,0 +1,22 @@
+# Mote
+
+> Mote turns any image into animated 3D particles in the browser and exports clean three.js code (standalone HTML or a React component). Free, no sign-up, nothing is uploaded to a server.
+
+## Pages
+
+- [Home](/): what Mote does, example conversions, and an FAQ.
+- [Studio](/studio): upload an image, choose an animation (ten options including Assemble, Wave, Swirl, Repel and Magnet), adjust particle count, size and color, then copy or download the code.
+
+## How it works
+
+1. The image is drawn to a hidden canvas in the user's browser.
+2. Visible pixels (transparent or plain-background pixels are skipped) are randomly sampled; each becomes one particle with that pixel's position and color.
+3. A three.js shader animates the particles on the GPU.
+4. The exported code embeds the particle data (base64 int16 positions plus uint8 colors), the shader, and the animation. It only needs three.js to run.
+
+## Facts
+
+- Runs entirely client-side; images never leave the device.
+- Input formats: PNG, JPG, WebP, GIF (first frame), SVG.
+- Export formats: single-file HTML (three.js from a CDN import map) and a React component (`npm install three`).
+- Animations: Assemble, Float, Wave, Repel (mouse), Magnet (mouse), Swirl, Swing, Pulse, Ripple, Sparkle.
