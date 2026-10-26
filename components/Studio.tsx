@@ -130,10 +130,10 @@ export function Studio() {
         Upload an image, pick an animation, then copy or download the code.
       </p>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_340px]">
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
         {/* Stage - dark surface */}
         <div
-          className="relative aspect-[4/3] overflow-hidden rounded-xl bg-surface-dark"
+          className="relative aspect-square overflow-hidden rounded-xl bg-surface-dark sm:aspect-[4/3]"
           onDragOver={(e) => {
             e.preventDefault();
             setDragging(true);

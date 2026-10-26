@@ -2,7 +2,7 @@
 
 **Turn any image into animated 3D particles, then export the code.**
 
-Live: **https://i2p-seven.vercel.app**
+Live: **https://mote.sevenlabs.site** (also at https://i2p-seven.vercel.app)
 
 Upload a picture, watch it break into thousands of GPU-animated particles, pick one of ten animations, and copy or download clean three.js code as a standalone HTML file or a React component. Everything runs in your browser: there is no backend and your images never leave your device.
 
@@ -106,7 +106,7 @@ DESIGN.md                design system reference
 Mote is a static Next.js app, so the default Vercel settings work.
 
 1. Import the repository in Vercel.
-2. Optional: set `NEXT_PUBLIC_SITE_URL` (for example `https://i2p-seven.vercel.app` or your custom domain). It drives canonical URLs, the sitemap, `robots.txt` and the social share image. If unset, Vercel's production URL is used automatically.
+2. Optional: set `NEXT_PUBLIC_SITE_URL` (for this deployment: `https://mote.sevenlabs.site`). It drives canonical URLs, the sitemap, `robots.txt` and the social share image. If unset, Vercel's production URL is used, which may be the `vercel.app` address rather than your custom domain, so set it explicitly.
 
 ## Tech stack
 

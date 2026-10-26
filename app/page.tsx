@@ -79,7 +79,7 @@ export default function Home() {
       <Nav />
       <main>
         {/* Hero - cream */}
-        <section className="mx-auto grid max-w-[1200px] items-center gap-12 px-5 py-16 md:py-24 lg:grid-cols-2">
+        <section className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-12 px-5 py-16 md:py-24 lg:grid-cols-2">
           <div>
             <span className="badge-pill">Free · Runs in your browser</span>
             <h1 className="display-xl mt-6">Turn any image into particles.</h1>
@@ -114,7 +114,7 @@ export default function Home() {
 
         {/* How it works - dark */}
         <section id="how-it-works" className="bg-surface-dark py-16 md:py-24">
-          <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-5 lg:grid-cols-2">
+          <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <p className="caption-uppercase text-accent-amber">How it works</p>
               <h2 className="display-lg mt-3 !text-on-dark">Three steps, one file.</h2>
