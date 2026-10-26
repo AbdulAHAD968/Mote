@@ -1,4 +1,4 @@
-# Mote
+﻿# Mote
 
 **Turn any image into animated 3D particles, then export the code.**
 
@@ -10,7 +10,7 @@ Upload a picture, watch it break into thousands of GPU-animated particles, pick 
 
 - **Image to particles in the browser.** The image is drawn to a hidden canvas, its visible pixels are sampled, and each sample becomes one particle with that pixel's position and color.
 - **Ten animations:** Assemble, Float, Wave, Repel, Magnet, Swirl, Swing, Pulse, Ripple and Sparkle. Repel and Magnet react to your cursor.
-- **Live controls:** particle count (2,000 to 30,000), particle size, original or single color, and plain-background removal.
+- **Live controls:** particle count (2,000 to 60,000), detail (more particles on edges), particle size, original or single color, plain-background removal and contrast/color enhancement.
 - **Two export formats:**
   - **HTML:** one self-contained file. three.js is loaded from a CDN import map.
   - **React:** a single `MoteParticles.jsx` component. Run `npm install three`.
@@ -64,8 +64,8 @@ The component fills its parent, so give the parent a height. In the Next.js App 
 
 ## How it works
 
-1. `lib/particles.ts` reads the image into an offscreen canvas (longest side capped at 320 px), detects a plain background from the four corners, and keeps the visible pixels.
-2. It samples N of those pixels with a seeded random generator and normalises positions so the longest side spans -1 to 1.
+1. `lib/particles.ts` reads the image into an offscreen canvas (longest side capped at 480 px), removes a plain background by flood-filling from the border (so dark features inside the subject survive), optionally stretches contrast and color, and measures edge strength with a Sobel filter.
+2. It places about N particles with Floyd-Steinberg error diffusion, weighted toward edges, so they are spread evenly instead of clumping like random sampling. Positions are normalised so the longest side spans -1 to 1.
 3. `lib/ParticleScene.ts` renders the points with three.js and a custom shader (`lib/shaders.ts`). All animation happens on the GPU from a time uniform, so there is no per-frame JavaScript per particle.
 4. `lib/exporters.ts` encodes the particles compactly (int16 x/y pairs plus uint8 r/g/b, base64) and embeds them with the same shader. About 9 KB per 1,000 particles.
 

@@ -41,7 +41,9 @@ export function Studio() {
   const [dragging, setDragging] = useState(false);
 
   const [removeBg, setRemoveBg] = useState(true);
-  const [count, setCount] = useState(12000);
+  const [enhance, setEnhance] = useState(true);
+  const [detail, setDetail] = useState(0.6);
+  const [count, setCount] = useState(24000);
   const [size, setSize] = useState(2);
   const [animation, setAnimation] = useState<AnimationId>("assemble");
   const [colorMode, setColorMode] = useState<"original" | "single">("original");
@@ -53,19 +55,22 @@ export function Studio() {
   const analysis: { source: ImageSource | null; error: string | null } = useMemo(() => {
     if (!loaded) return { source: null, error: null };
     try {
-      return { source: analyseImage(loaded.source, removeBg), error: null };
+      return {
+        source: analyseImage(loaded.source, { removeBackground: removeBg, enhance }),
+        error: null,
+      };
     } catch (e) {
       return {
         source: null,
         error: e instanceof Error ? e.message : "Something went wrong reading the image.",
       };
     }
-  }, [loaded, removeBg]);
+  }, [loaded, removeBg, enhance]);
   const imageSource = analysis.source;
 
   const field = useMemo(
-    () => (imageSource ? sampleParticles(imageSource, count) : null),
-    [imageSource, count],
+    () => (imageSource ? sampleParticles(imageSource, count, detail) : null),
+    [imageSource, count, detail],
   );
   const empty = imageSource && imageSource.visible.length === 0;
   const tint = colorMode === "single" ? color : null;
@@ -244,11 +249,29 @@ export function Studio() {
               className="mt-2"
               type="range"
               min={2000}
-              max={30000}
-              step={1000}
+              max={60000}
+              step={2000}
               value={count}
               onChange={(e) => setCount(+e.target.value)}
             />
+          </label>
+
+          <label className="block">
+            <span className="flex justify-between text-sm font-medium text-ink">
+              Detail <span className="font-normal text-muted">{Math.round(detail * 100)}%</span>
+            </span>
+            <input
+              className="mt-2"
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={detail}
+              onChange={(e) => setDetail(+e.target.value)}
+            />
+            <span className="mt-1 block text-[13px] text-muted">
+              Puts more particles on edges and fine detail.
+            </span>
           </label>
 
           <label className="block">
@@ -302,6 +325,16 @@ export function Studio() {
               className="h-4 w-4 accent-[#cc785c]"
             />
             Remove plain background
+          </label>
+
+          <label className="flex items-center gap-3 text-sm font-medium text-ink">
+            <input
+              type="checkbox"
+              checked={enhance}
+              onChange={(e) => setEnhance(e.target.checked)}
+              className="h-4 w-4 accent-[#cc785c]"
+            />
+            Enhance contrast and color
           </label>
         </fieldset>
       </div>

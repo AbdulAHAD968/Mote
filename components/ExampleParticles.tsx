@@ -12,7 +12,7 @@ function useExampleField(id: ExampleId, count: number) {
   useEffect(() => {
     const canvas = drawExample(id);
     setOriginal(canvas);
-    setField(sampleParticles(analyseImage(canvas, false), count));
+    setField(sampleParticles(analyseImage(canvas, { removeBackground: false, enhance: false }), count));
   }, [id, count]);
   return { field, original };
 }
